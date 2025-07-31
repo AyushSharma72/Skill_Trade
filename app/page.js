@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { ArrowRight, CheckCircle, Star, Users } from "lucide-react";
 import ServiceCard from "./_components/service-card";
 import TestimonialCard from "./_components/testimonial-card";
-import { useState } from "react";
+import { useState,useEffect, useRef } from "react";
 import MarqueeImages from "./_components/MarqeeImage";
 
 const LottieAnimation = dynamic(
@@ -19,7 +19,37 @@ const Footer = dynamic(() => import("./_components/Footer"), { ssr: false });
 
 function Home() {
   const [activeTab, setActiveTab] = useState("popular");
+    const ref_customer = useRef(null);
+  const ref_services = useRef(null);
+  const ref_title = useRef(null);
+  const refs = [ref_services, ref_customer, ref_title];
+  const [visible, setVisible] = useState(new Map([[ref_customer, false], [ref_services, false], [ref_title, false]]));
 
+  useEffect(() => {
+    //using an observer, to enable the animation only when the divs are visible, so when you're scrolling
+    const obs = new IntersectionObserver(
+      //using a map, to enable animation independently for each divs
+      (entries) => {
+        setVisible((prev) => {
+          const updated = new Map(prev);
+          entries.forEach((entry) => {
+            const ref = refs.find((r) => r.current === entry.target);
+            if(entry.isIntersecting)
+              updated.set(ref, true);
+          });
+          return updated;
+        });
+      },
+      //threshold to enable animation when a certain percentage of the divs is visible, here 0.16 so 16% of the div
+      { threshold: 0.16 }
+    );
+
+    //loop to see if any divs is visible and so enable animation when it's the case
+    for(const ref of refs){
+      if(ref.current) obs.observe(ref.current);
+    }
+    return () => obs.disconnect();
+  }, []);
   const services = [
     {
       id: 1,
@@ -92,13 +122,14 @@ function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero section */}
-      <div
-        className="flex items-center flex-col sm:h-[500px] h-[550px] justify-center
+      <div ref={ref_title}
+        className={`flex items-center flex-col sm:h-[500px] h-[550px] justify-center
          bg-[url('/hero_backGround.webp')] bg-cover bg-center bg-no-repeat 
-         gap-7 sm:gap-5 p-3 sm:mt-0 mt-[70px] relative"
+         gap-7 sm:gap-5 p-3 sm:mt-0 mt-[70px] relative ${visible.get(ref_title)?'animate-mainpage':''}`}
       >
 
-        <div className="relative  max-w-4xl mx-auto px-4 text-center">
+          {/*animation for the main title on the main page, and on hover the button there's also an animation*/}
+        <div className={`relative  max-w-4xl mx-auto px-4 text-center ${visible.get(ref_title)?'animate-title':''}`}>
           <h1 className="text-5xl sm:text-6xl font-bold font-sans text-white text-center mb-4">
             Your Trusted Partner for Home Services
           </h1>
@@ -112,14 +143,14 @@ function Home() {
               size="lg"
               className="bg-white text-black hover:bg-gray-300 font-bold text-lg px-6"
             >
-              <Link href="user/create_request">Book A Service Now</Link>
+              <Link href="user/create_request" className="hover:animate-pulse">Book A Service Now</Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="bg-white text-black hover:bg-gray-300 font-bold text-lg px-6"
             >
-              <Link href="/user/hire">Hire Worker</Link>
+              <Link href="/user/hire" className="hover:animate-pulse">Hire Worker</Link>
             </Button>
           </div>
         </div>
@@ -216,7 +247,8 @@ function Home() {
             meet your specific requirements
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div ref={ref_services} className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ${visible.get(ref_services)?'animate-spawn':''}`}>
             {services.map((service) => (
               <ServiceCard key={service.id} service={service} />
             ))}
@@ -251,7 +283,8 @@ function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+           {/* animation added here*/}
+          <div ref={ref_customer} className={`grid grid-cols-1 md:grid-cols-3 gap-8 ${visible.get(ref_customer)?'animate-spawn':''}`}>
             {testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.id} testimonial={testimonial} />
             ))}

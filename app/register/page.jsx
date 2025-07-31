@@ -35,13 +35,13 @@ const Register = () => {
                 <TabsList className="flex flex-col sm:flex-row w-full h-auto sm:h-12 bg-slate-100">
                   <TabsTrigger
                     value="user"
-                    className="font-semibold text-base py-3 sm:py-0 data-[state=active]:bg-black data-[state=active]:text-white  data-[state=active]:shadow-sm"
+                    className="font-semibold text-base py-3 sm:py-0 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-sm"
                   >
                     Register As User
                   </TabsTrigger>
                   <TabsTrigger
                     value="worker"
-                    className="font-semibold text-base py-3 sm:py-0 data-[state=active]:bg-black data-[state=active]:text-white  data-[state=active]:shadow-sm"
+                    className="font-semibold text-base py-3 sm:py-0 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-sm"
                   >
                     Register As Service Provider
                   </TabsTrigger>

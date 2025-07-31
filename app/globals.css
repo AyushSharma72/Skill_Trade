@@ -210,4 +210,38 @@ body::-webkit-scrollbar {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --animate-spawn: spawn 2s ease-out forwards;
+  --animate-title: title 2s ease-out forwards;
+  --animate-mainpage: mainpage 2s ease-out forwards;
+
+  @keyframes spawn {
+    0% {
+      opacity: 10%;
+      transform: translateY(50px);
+    } 100% {
+      opacity: 100%;
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes title {
+    0% {
+      opacity: 10%;
+      transform: translateY(50px);
+
+    } 100% {
+      opacity: 100%;
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes mainpage {
+    0% {
+      width: 85%;
+      transform: translate(10%, 0%);
+
+    } 100% {
+      width: 100%;
+    }
+  }
 }
