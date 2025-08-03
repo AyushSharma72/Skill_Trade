@@ -112,14 +112,14 @@ function Home() {
               size="lg"
               className="bg-white text-black hover:bg-gray-300 font-bold text-lg px-6"
             >
-              <Link href="user/create_request">Book A Service Now</Link>
+              <Link href="/login">Book A Service Now</Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="bg-white text-black hover:bg-gray-300 font-bold text-lg px-6"
             >
-              <Link href="/user/hire">Hire Worker</Link>
+              <Link href="/login">Hire Worker</Link>
             </Button>
           </div>
         </div>
