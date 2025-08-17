@@ -64,7 +64,7 @@ const privacySections = [
     title: "Your Rights",
     content: `You have the right to access, correct, update, or request deletion of your personal data. You may also object to certain processing or request data portability where applicable. For requests, please Contact Us using the details provided on our website.`,
     links: [
-      { text: "Contact Us", url: "/Contact" }
+      { text: "Contact Us", url: "/contact-us" }
     ]
   },
   {

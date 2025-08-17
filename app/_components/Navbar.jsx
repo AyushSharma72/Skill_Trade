@@ -145,9 +145,9 @@ const Navbar = () => {
                 Hire
               </Link>
               <Link
-                href="/Contact"
+                href="/contact-us"
                 className={`${
-                  pathname === "/Contact" ? "border-b-2 " : ""
+                  pathname === "/contact-us" ? "border-b-2 " : ""
                 } text-lg hover:text-gray-300 transition-colors`}
               >
                 Contact
@@ -181,9 +181,9 @@ const Navbar = () => {
                 Hiring Requests
               </Link>
               <Link
-                href="/Contact"
+                href="/contact-us"
                 className={`${
-                  pathname === "/Contact" ? "border-b-2 " : ""
+                  pathname === "/contact-us" ? "border-b-2 " : ""
                 } text-lg hover:text-gray-300 transition-colors`}
               >
                 Contact
@@ -221,9 +221,9 @@ const Navbar = () => {
                 Home
               </Link>
               <Link
-                href="/Contact"
+                href="/contact-us"
                 className={`${
-                  pathname === "/Contact" ? "border-b-2 " : ""
+                  pathname === "/contact-us" ? "border-b-2 " : ""
                 } text-lg hover:text-gray-300 transition-colors`}
               >
                 Contact
@@ -276,13 +276,15 @@ const Navbar = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Image
-                src="/logo.png"
-                className="w-[200px] h-[70px]"
-                alt="Logo"
-                width={200}
-                height={70}
-              />
+              <Link href="/">
+                <Image
+                  src="/logo.png"
+                  className="w-[200px] h-[70px]"
+                  alt="Logo"
+                  width={200}
+                  height={70}
+                />
+              </Link>
             </Toolbar>
           </AppBar>
           <Drawer
@@ -634,7 +636,7 @@ const Navbar = () => {
                   <ListItem disablePadding>
                     <ListItemButton onClick={handleDrawerClose}>
                       <Link
-                        href="/Contact"
+                        href="/contact-us"
                         className="m-auto flex items-center gap-2"
                       >
                         <ListItemIcon>

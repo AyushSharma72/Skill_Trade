@@ -8,6 +8,7 @@ import TestimonialCard from "./_components/testimonial-card";
 import { useState } from "react";
 import MarqueeImages from "./_components/MarqeeImage";
 import CountUp from "@/components/ui/countUp";
+import FAQ from "./_components/FAQ";
 
 const LottieAnimation = dynamic(
   () => import("./_components/homepageanimation"),
@@ -248,6 +249,7 @@ function Home() {
         </div>
       </div>
 
+
       {/* Testimonials section */}
       <div className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
@@ -255,7 +257,7 @@ function Home() {
             <div className="bg-gray-100 p-2 rounded-full">
               <Users className="h-6 w-6 text-gray-900" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold ml-3">
+            <h2 className="text-3xl sm:text-5xl font-bold ml-3">
               What Our Users Say
             </h2>
           </div>
@@ -266,6 +268,11 @@ function Home() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* FAQ section */}
+      <div className="py-16 bg-gray-100">
+        <FAQ />
       </div>
 
       {/* CTA section */}
