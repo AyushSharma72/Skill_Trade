@@ -66,7 +66,7 @@ const CreateRequest = () => {
   const defaultService = getServices.find((s) => s.value === expertise) || null;
   const minDate = new Date();
   const [auth] = useAuth();
-console.log("Testing", defaultService, expertise, getServices);
+
   const locations = [
     {
       value: `${auth?.user?.Address}`,

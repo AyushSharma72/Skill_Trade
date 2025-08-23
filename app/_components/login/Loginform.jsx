@@ -4,7 +4,6 @@ import { RxCross1 } from "react-icons/rx";
 import { useAuth } from "@/app/_context/UserAuthContent";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -70,7 +69,7 @@ const LoginForm = () => {
         toast.success("Verification successful");
         setOpen(false);
         setLoading(true);
-        setTimeout(() => {
+      let ids =   setTimeout(() => {
           setLoading(false);
           SetResetPass(true);
         }, 2000);
@@ -80,6 +79,7 @@ const LoginForm = () => {
     } catch {
       toast.error("An unexpected error occurred. Please try again.");
     } finally {
+      clearTimeOut(ids)
       SetVerifyOtp(false);
     }
   };

@@ -22,9 +22,10 @@ export default function RequestDetailsClient({ params}) {
         console.log(`Fetching data for rid: ${rid}`);
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/request/GetSingleUserRequest/${rid}`,{
-            next:{revalidate:60}
-          }
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/request/GetSingleUserRequest/${rid}`
+          // ,{
+          //   next:{revalidate:60}
+          // }
         );
 
         if (!response.ok) {

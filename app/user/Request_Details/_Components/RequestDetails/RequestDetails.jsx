@@ -291,11 +291,22 @@ const params = useParams();
             <div className="flex flex-col lg:flex-row gap-10">
               <div className="flex flex-col items-center w-full lg:w-1/3">
                 {(imageError) ?
-                  <div class="w-full h-full flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 text-gray-400 text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 7l9-4 9 4v10l-9 4-9-4V7z" />
-                    </svg>
+                  <div className="w-full h-full flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 text-gray-400 text-sm">
+                    <svg
+  xmlns="http://www.w3.org/2000/svg"
+  className="h-10 w-10 mb-2"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth={2}
+    d="M3 7l9-4 9 4v10l-9 4-9-4V7z"
+  />
+</svg>
+
                     <span>No Image Uploaded</span>
                   </div>
                   : 
