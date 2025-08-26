@@ -1,4 +1,3 @@
-"use client";
 import MarqueeImages from "@/components/MarqeeImage2";
 import CountUp from "@/components/ui/countUp";
 import {
@@ -18,11 +17,9 @@ import {
   Handshake,
   MessageSquare,
 } from "lucide-react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-
-const Footer = dynamic(() => import("../_components/Footer"), { ssr: false });
+import Footer from './../_components/Footer';
 
 const Page = () => {
   const features = [
