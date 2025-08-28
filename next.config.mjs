@@ -4,7 +4,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "skilltrade-backed.onrender.com",
+        hostname: "skill-trade-backend.onrender.com",
+        pathname: "/**",   // allow all subpaths like /uploads/*
       },
       {
         protocol: "https",
@@ -14,9 +15,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "8000",
+        pathname: "/**",
       },
       {
-        protocol: "https",     // Added for Unsplash images for setting up the MarqueeImages component
+        protocol: "https",
         hostname: "images.unsplash.com",
       },
     ],
