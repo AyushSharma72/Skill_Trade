@@ -415,7 +415,7 @@ async function UpdateProfile(req, resp) {
         const confidenceScore = await verifyAadharImage(vimageBuffer);
         console.log("confidenceScore", confidenceScore);
         updatedWorker.Verified.verified =
-          confidenceScore >= 70 ? "Verified" : "Pending";
+          confidenceScore >= 80 ? "Verified" : "Pending";
       } catch (error) {
         return resp.status(400).send({
           success: false,
