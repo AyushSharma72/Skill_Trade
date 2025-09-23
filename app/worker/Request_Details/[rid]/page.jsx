@@ -3,10 +3,10 @@ import RequestDetailsClient from "./RequestDetailsClient";
 async function fetchRequestDetails(rid) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/request/GetSingleUserRequest/${rid}`,
-      {
-        next: { revalidate: 100 }, // ISR: Revalidate every 100 seconds
-      }
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/request/GetSingleUserRequest/${rid}`
+      // {
+      //   next: { revalidate: 100 }, // ISR: Revalidate every 100 seconds
+      // }
     );
 
     if (!response.ok) {

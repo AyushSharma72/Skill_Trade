@@ -4,10 +4,10 @@ import WorkerProfileClient from "../WorkerProfileClient";
 async function fetchWorkerData(wid) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/workers/GetWorkerData/${wid}`,
-      {
-        next: { revalidate: 60 }, // ISR for revalidating data
-      }
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/workers/GetWorkerData/${wid}`
+      // {
+      //   next: { revalidate: 60 }, // ISR for revalidating data
+      // }
     );
 
     if (!response.ok) {
@@ -25,7 +25,7 @@ async function fetchWorkerData(wid) {
 
 export default async function WorkerProfile({ params }) {
   const { wid } = await params;
-  const data = await fetchWorkerData(wid); // Fetch data 
+  const data = await fetchWorkerData(wid); // Fetch data
 
   if (!data) {
     return (
@@ -37,5 +37,5 @@ export default async function WorkerProfile({ params }) {
     );
   }
 
-  return <WorkerProfileClient IntialWorkerData={data.worker}/>;
+  return <WorkerProfileClient IntialWorkerData={data.worker} />;
 }
