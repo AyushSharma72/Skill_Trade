@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Virtual Environments
+venv/
+env/
+ENV/
+
+# Model files (optional, if you don’t want to push large .pkl files)
+*.pkl
+
+# OS
+.DS_Store
+Thumbs.db
