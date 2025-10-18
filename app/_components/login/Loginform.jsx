@@ -172,16 +172,24 @@ const LoginForm = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <form onSubmit={HandleLogin} className="space-y-6">
+              <form onSubmit={HandleLogin} className="space-y-6" aria-label="Login form">
                 <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                    <Phone className="h-4 w-4" />
+                  <label 
+                    htmlFor="phone-input"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700"
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
                     Phone Number
                   </label>
                   <PhoneInput
                     country={"in"}
                     value={mobileNo}
                     onChange={(value) => setMobileNo(value)}
+                    inputProps={{
+                      id: "phone-input",
+                      "aria-label": "Enter your phone number",
+                      "aria-required": "true"
+                    }}
                     inputStyle={{
                       width: "100%",
                       height: "48px",
@@ -200,17 +208,23 @@ const LoginForm = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                    <Lock className="h-4 w-4" />
+                  <label 
+                    htmlFor="password-input"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700"
+                  >
+                    <Lock className="h-4 w-4" aria-hidden="true" />
                     Password
                   </label>
                   <TextField
+                    id="password-input"
                     fullWidth
                     variant="outlined"
                     placeholder="Enter your password"
                     name="Password"
                     required
                     type={showPassword ? "text" : "password"}
+                    aria-label="Enter your password"
+                    aria-required="true"
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         height: "48px",
@@ -223,6 +237,7 @@ const LoginForm = () => {
                           <IconButton
                             onClick={handleClickShowPassword}
                             edge="end"
+                            aria-label={showPassword ? "Hide password" : "Show password"}
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>

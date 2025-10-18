@@ -104,20 +104,24 @@ const Navbar = () => {
 
   const pathname = usePathname();
   return (
-    <div className="bg-black flex justify-center text-white sticky top-0 z-[90] !font-serif">
+    <nav 
+      className="bg-black flex justify-center text-white sticky top-0 z-[90] !font-serif"
+      role="navigation"
+      aria-label="Main navigation"
+    >
       {/* navbar big screen  */}
       <div className="w-full xl:w-[95%] justify-between sm:flex hidden">
-      <Link href="/">
+      <Link href="/" aria-label="SkillTrade Home">
         <Image
           src="/logo.png"
           className="w-[200px] h-[70px] cursor-pointer"
-          alt="skill trade logo"
+          alt="SkillTrade logo"
           width={200}
           height={70}
-        ></Image>
+        />
       </Link>
 
-        <div className="p-2 px-6 flex items-center justify-end gap-8 font-bold text-xl">
+        <div className="p-2 px-6 flex items-center justify-end gap-8 font-bold text-xl" role="menubar">
 
           {auth?.user?.role == 0 ? (
             <>
@@ -297,7 +301,7 @@ const Navbar = () => {
             <Toolbar className="flex justify-between">
               <IconButton
                 color="inherit"
-                aria-label="open drawer"
+                aria-label={open ? "Close navigation menu" : "Open navigation menu"}
                 onClick={handleDrawerOpen}
                 edge="start"
                 sx={[
@@ -309,11 +313,11 @@ const Navbar = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Link href="/">
+              <Link href="/" aria-label="SkillTrade Home">
                 <Image
                   src="/logo.png"
                   className="w-[200px] h-[70px]"
-                  alt="Logo"
+                  alt="SkillTrade logo"
                   width={200}
                   height={70}
                 />
@@ -332,9 +336,14 @@ const Navbar = () => {
             variant="persistent"
             anchor="left"
             open={open}
+            aria-label="Navigation menu"
+            role="navigation"
           >
             <DrawerHeader>
-              <IconButton onClick={handleDrawerClose}>
+              <IconButton 
+                onClick={handleDrawerClose}
+                aria-label="Close navigation menu"
+              >
                 {theme.direction === "ltr" ? (
                   <ChevronLeftIcon />
                 ) : (
@@ -734,7 +743,7 @@ const Navbar = () => {
           </Drawer>
         </Box>
       </div>
-    </div>
+    </nav>
   );
 };
 
