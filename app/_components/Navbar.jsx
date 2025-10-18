@@ -1,4 +1,5 @@
 "use client";
+import { FaInfoCircle } from "react-icons/fa";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -129,6 +130,14 @@ const Navbar = () => {
                 Home
               </Link>
               <Link
+                href="/about-us"
+                className={`${
+                  pathname === "/about-us" ? "border-b-2 " : ""
+                } text-lg hover:text-gray-300 transition-colors`}
+              >
+                About
+              </Link>
+              <Link
                 href="/user/create_request"
                 className={`${
                   pathname === "/user/create_request" ? "border-b-2 " : ""
@@ -163,6 +172,14 @@ const Navbar = () => {
                 } text-lg hover:text-gray-300 transition-colors`}
               >
                 Home
+              </Link>
+              <Link
+                href="/about-us"
+                className={`${
+                  pathname === "/about-us" ? "border-b-2 " : ""
+                } text-lg hover:text-gray-300 transition-colors`}
+              >
+                About
               </Link>
               <Link
                 href="/worker/all_request"
@@ -200,6 +217,14 @@ const Navbar = () => {
               >
                 Home
               </Link>
+               <Link
+                href="/about-us"
+                className={`${
+                  pathname === "/about-us" ? "border-b-2 " : ""
+                } text-lg hover:text-gray-300 transition-colors`}
+              >
+                About
+              </Link>
               <Link
                 href="/admin/verify_worker"
                 className={`${
@@ -219,6 +244,14 @@ const Navbar = () => {
                 } text-lg hover:text-gray-300 transition-colors`}
               >
                 Home
+              </Link>
+              <Link
+                href="/about-us"
+                className={`${
+                  pathname === "/about-us" ? "border-b-2 " : ""
+                } text-lg hover:text-gray-300 transition-colors`}
+              >
+                About
               </Link>
               <Link
                 href="/contact-us"
@@ -326,6 +359,17 @@ const Navbar = () => {
                     </ListItemButton>
                   </ListItem>
                   <hr></hr>
+                  {/* about  */}
+                    <ListItem disablePadding>
+                      <ListItemButton onClick={handleDrawerClose}>
+                        <Link href="/about-us" className="m-auto flex items-center gap-2">
+                          <ListItemIcon>
+                            <FaInfoCircle />
+                          </ListItemIcon>
+                          <ListItemText primary="About" />
+                        </Link>
+                      </ListItemButton>
+                    </ListItem>
                   {/* create request  */}
                   <ListItem disablePadding>
                     <ListItemButton onClick={handleDrawerClose}>
@@ -426,6 +470,21 @@ const Navbar = () => {
                       </Link>
                     </ListItemButton>
                   </ListItem>
+                  {/* about  */}
+                   <ListItem disablePadding>
+                    <ListItemButton>
+                      <Link
+                        href="/about-us"
+                        className="m-auto flex items-center gap-2"
+                        onClick={handleDrawerClose}
+                      >
+                        <ListItemIcon>
+                          <FaInfoCircle />
+                        </ListItemIcon>
+                        <ListItemText primary="About" />
+                      </Link>
+                    </ListItemButton>
+                  </ListItem>
                   {/* all request  */}
                   <ListItem disablePadding>
                     <ListItemButton onClick={handleDrawerClose}>
@@ -522,7 +581,15 @@ const Navbar = () => {
                       </Link>
                     </ListItemButton>
                   </ListItem>
-
+                  {/* about */}
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={handleDrawerClose}>
+                      <Link href="/about-us" className="m-auto flex">
+                        <ListItemIcon></ListItemIcon>
+                        <ListItemText primary="About" />
+                      </Link>
+                    </ListItemButton>
+                  </ListItem>
                   {/* admin menu  */}
                   <div className="flex justify-center ">
                     <Button
@@ -596,6 +663,19 @@ const Navbar = () => {
                           <FaHome />
                         </ListItemIcon>
                         <ListItemText primary="Home" />
+                      </Link>
+                    </ListItemButton>
+                  </ListItem>
+                  <hr></hr>
+                  {/* about */}
+                   <ListItem disablePadding>
+                    <ListItemButton onClick={handleDrawerClose}>
+                      <Link href="/about-us" className="m-auto flex items-center gap-2">
+                        <ListItemIcon>
+                          {" "}
+                          <FaInfoCircle />
+                        </ListItemIcon>
+                        <ListItemText primary="About" />
                       </Link>
                     </ListItemButton>
                   </ListItem>
