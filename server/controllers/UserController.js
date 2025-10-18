@@ -6,36 +6,80 @@ const fs = require("fs").promises;
 const nodemailer = require("nodemailer");
 const ReportModal = require("../modals/ReportModal");
 const RequestModal = require("../modals/RequestModal");
+const logger = require("../utils/logger");
+
+// Input validation helper
+const validateRequiredFields = (fields, requiredFields) => {
+  const missing = requiredFields.filter(field => !fields[field]);
+  return missing.length > 0 ? missing : null;
+};
+
+// Email validation helper
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
 
 async function RegisterUser(req, resp) {
   try {
     const { Name, MobileNo, Email, Password, Address, Pincode } = req.body;
 
-    if (!Name || !MobileNo || !Email || !Password || !Address) {
-      return resp.status(400).send({
+    // Validate required fields
+    const missingFields = validateRequiredFields(req.body, ['Name', 'MobileNo', 'Email', 'Password', 'Address']);
+    if (missingFields) {
+      logger.warn('User registration failed - missing fields', { missingFields, ip: req.ip });
+      return resp.status(400).json({
         success: false,
-        error: "All fields are required",
+        error: "Missing required fields",
+        missingFields
       });
     }
-    const userEmailExists = await UserModal.findOne({ Email });
-    const userMobileExists = await UserModal.findOne({ MobileNo });
-    const WorkerMobileExists = await WorkerModal.findOne({ MobileNo });
+
+    // Validate email format
+    if (!isValidEmail(Email)) {
+      logger.warn('User registration failed - invalid email', { email: Email, ip: req.ip });
+      return resp.status(400).json({
+        success: false,
+        error: "Invalid email format"
+      });
+    }
+
+    // Validate password strength
+    if (Password.length < 6) {
+      logger.warn('User registration failed - weak password', { ip: req.ip });
+      return resp.status(400).json({
+        success: false,
+        error: "Password must be at least 6 characters long"
+      });
+    }
+
+    // Check if user already exists
+    const [userEmailExists, userMobileExists, WorkerMobileExists] = await Promise.all([
+      UserModal.findOne({ Email }),
+      UserModal.findOne({ MobileNo }),
+      WorkerModal.findOne({ MobileNo })
+    ]);
 
     if (userEmailExists) {
-      return resp.status(409).send({
+      logger.info('User registration attempt with existing email', { email: Email, ip: req.ip });
+      return resp.status(409).json({
         success: false,
         message: "User already exists, please login",
       });
     }
+    
     if (userMobileExists || WorkerMobileExists) {
-      return resp.status(409).send({
+      logger.info('User registration attempt with existing mobile', { mobile: MobileNo, ip: req.ip });
+      return resp.status(409).json({
         success: false,
-        message: "Mobile number already exists",
+        message: "Mobile number already registered",
       });
     }
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(Password, 10);
 
+    // Create new user
     const newuser = new UserModal({
       Name,
       MobileNo,
@@ -44,33 +88,60 @@ async function RegisterUser(req, resp) {
       Address,
       Pincode,
     });
+    
     await newuser.save();
-
-    resp.status(201).send({
-      success: true,
-      message: "Account created succesfully",
+    
+    logger.info('User registered successfully', { 
+      userId: newuser._id, 
+      email: Email, 
+      mobile: MobileNo,
+      ip: req.ip 
     });
+
+    resp.status(201).json({
+      success: true,
+      message: "Account created successfully",
+      user: {
+        id: newuser._id,
+        name: newuser.Name,
+        email: newuser.Email
+      }
+    });
+    
   } catch (error) {
-    resp.status(500).send({ success: false, error: "Internal server error" });
+    logger.error('User registration failed:', error, { 
+      requestBody: { ...req.body, Password: '[REDACTED]' },
+      ip: req.ip 
+    });
+    
+    resp.status(500).json({ 
+      success: false, 
+      error: "Internal server error",
+      message: process.env.NODE_ENV === 'production' ? 'Registration failed' : error.message
+    });
   }
 }
 
 async function UserLogin(req, resp) {
   try {
     const { MobileNo, Password } = req.body;
-    if (!MobileNo || !Password) {
-      return resp.status(404).send({
+    
+    // Validate required fields
+    const missingFields = validateRequiredFields(req.body, ['MobileNo', 'Password']);
+    if (missingFields) {
+      logger.warn('Login attempt with missing fields', { missingFields, ip: req.ip });
+      return resp.status(400).json({
         success: false,
-        message: "All fields are required",
+        message: "Mobile number and password are required",
+        missingFields
       });
     }
 
-    const user = await UserModal.findOne({ MobileNo }).select(
-      "-Password -image"
-    );
-    const worker = await WorkerModal.findOne({ MobileNo }).select(
-      "-Password -image"
-    );
+    // Find user or worker
+    const [user, worker] = await Promise.all([
+      UserModal.findOne({ MobileNo }).select("-Password -image"),
+      WorkerModal.findOne({ MobileNo }).select("-Password -image")
+    ]);
 
     if (!user && !worker) {
       return resp.status(401).send({
