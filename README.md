@@ -24,22 +24,19 @@ Check out the live version here: [SkillTrade Live](https://skill-trade-next-15.v
 Here’s a glimpse of what Skilltrade looks like:
 
 ### 🖥️ Landing Page
-![Landing Page](./assets/landpg.png)
+<img width="1915" height="904" alt="image" src="https://github.com/user-attachments/assets/86d695a6-6d3d-41a3-adcf-743182926ab2" />
 
 ### 🛠️ New Service Section  
-![New Service](/assets/newservicepg.png)
+<img width="1917" height="909" alt="image" src="https://github.com/user-attachments/assets/b19647dc-5655-473c-a3a8-36b35447dc3d" />
 
 ### 📝 Register  
-![Register](/assets/registerpg.png)
+<img width="1917" height="896" alt="image" src="https://github.com/user-attachments/assets/a923f528-7fd0-404a-a590-b0129e665407" />
 
-### 💬 Testimonials  
-![Testimonial](/assets/testpg.png)
-
-### 📞 Contact Us  
-![Contact Us](/assets/contactpg.png)
+### 🦾 About Us  
+<img width="1913" height="908" alt="image" src="https://github.com/user-attachments/assets/60749942-0c0c-4ee1-b1f8-acd9117ff0fa" />
 
 ### 🤖 SkillBot  
-![Skill Bot](/assets/skillbot.png)
+<img width="1918" height="902" alt="image" src="https://github.com/user-attachments/assets/530df6b2-10ac-4696-a8b0-6bd812de2c20" />
 
 
 ## 🧰 Tech Stack
