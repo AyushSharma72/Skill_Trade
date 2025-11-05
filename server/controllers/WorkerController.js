@@ -5,6 +5,7 @@ const ReportModal = require("../modals/ReportModal");
 const RequestModal = require("../modals/RequestModal");
 const fs = require("fs").promises;
 const Tesseract = require("tesseract.js");
+const redisClient = require("../config/redisClient");
 
 async function RegisterWorker(req, resp) {
   try {
@@ -278,28 +279,49 @@ async function AcceptRequest(req, resp) {
 async function GetWorkerData(req, resp) {
   try {
     const { wid } = req.params;
+    const cacheKey = `worker:${wid}`;
+
+    //  Try to get from Redis
+    const cachedWorker = await redisClient.get(cacheKey);
+    if (cachedWorker) {
+      console.log(" Cache hit for worker:", wid);
+      return resp.status(200).send({
+        success: true,
+        worker: JSON.parse(cachedWorker),
+        fromCache: true, // helpful for debugging
+      });
+    }
+
+    //  If not found → fetch from MongoDB
     const worker = await WorkerModal.findOne({ _id: wid })
       .select("-Password -image -VerifyId")
       .populate({
         path: "Reviews.user",
         select: "Name",
       });
-    if (worker) {
-      resp.status(200).send({
-        success: true,
-        worker,
-      });
-    } else {
-      resp.status(404).send({
-        success: true,
-        message: "worker not found",
+
+    if (!worker) {
+      return resp.status(404).send({
+        success: false,
+        message: "Worker not found",
       });
     }
+
+    //  Save to Redis (with expiry)
+    await redisClient.setEx(cacheKey, 259200, JSON.stringify(worker)); // cache for 3 days
+
+    console.log(" Cache miss — fetched from MongoDB and stored in Redis");
+
+    return resp.status(200).send({
+      success: true,
+      worker,
+      fromCache: false,
+    });
   } catch (error) {
-    console.log(error);
+    console.error(" GetWorkerData error:", error);
     resp.status(500).send({
       success: false,
-      message: "internal server error",
+      message: "Internal server error",
     });
   }
 }
@@ -425,7 +447,10 @@ async function UpdateProfile(req, resp) {
     }
 
     await updatedWorker.save();
+    await redisClient.del(`worker:${wid}`);
 
+    console.log(" Redis cache invalidated for worker:", wid);
+    
     return resp.status(200).send({
       success: true,
       message: "Worker updated successfully",

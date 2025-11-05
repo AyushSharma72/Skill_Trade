@@ -22,6 +22,7 @@
     "mongoose": "^8.9.2",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.10.1",
+    "redis": "^5.9.0",
     "tesseract.js": "^6.0.0",
     "vader-sentiment": "^1.1.3"
   },

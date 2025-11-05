@@ -1,43 +1,64 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ==========================
+# Dependencies
+# ==========================
+client/node_modules/
+server/node_modules/
+node_modules/
 
-# dependencies
-/app/node_modules
-/server/node_modules
-/server/.env
-/.pnp
+# ==========================
+# Environment files
+# ==========================
+client/.env.local
+server/.env
+.env
+.env*.local
+
+# ==========================
+# Yarn / PnP
+# ==========================
+.pnp
 .pnp.js
 .yarn/install-state.gz
 
-# testing
-/coverage
+# ==========================
+# Testing
+# ==========================
+coverage/
 
-# next.js
-/.next/
-/out/   
+# ==========================
+# Next.js build outputs
+# ==========================
+.next/
+out/
+client/.next/
 
-# production
-/build
+# ==========================
+# Production builds
+# ==========================
+build/
+server/build/
+server/dist/
 
-# misc
+# ==========================
+# Misc files
+# ==========================
 .DS_Store
 *.pem
 
-# debug
+# ==========================
+# Debug logs
+# ==========================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
-.env
-
-# vercel
+# ==========================
+# Deployment / Platform
+# ==========================
 .vercel
 
-# typescript
+# ==========================
+# TypeScript build info
+# ==========================
 *.tsbuildinfo
 next-env.d.ts
-node_modules
-
-
-.env.local
