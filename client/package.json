@@ -36,7 +36,7 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.438.0",
     "moment": "^2.30.1",
-    "next": "^15.4.4",
+    "next": "15.4.10",
     "react": "^18.2.0",
     "react-datepicker": "^7.3.0",
     "react-dom": "^18.2.0",
